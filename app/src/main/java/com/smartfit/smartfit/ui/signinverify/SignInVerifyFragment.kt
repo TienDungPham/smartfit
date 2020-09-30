@@ -15,6 +15,7 @@ class SignInVerifyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSignInVerifyBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 }

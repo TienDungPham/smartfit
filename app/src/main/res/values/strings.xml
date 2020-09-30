@@ -57,4 +57,8 @@
     <string name="bmi">BMI</string>
 
     <string name="image_description">Image Description</string>
+    <string name="meal">Meal</string>
+    <string name="meal_size">Meal Size</string>
+    <string name="what_is_your_meal">What is your meal ?</string>
+    <string name="dismiss">Dismiss</string>
 </resources>
