@@ -1,5 +1,6 @@
 package com.smartfit.smartfit.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -22,5 +23,12 @@ class LauncherActivity : AppCompatActivity() {
         binding = ActivityLauncherBinding.inflate(layoutInflater)
         setContentView(binding.root)
         appComponent(this).injectLauncherActivity(this)
+
+        launcherViewModel.isUserSignIn.observe(this) {
+            if (it) startActivity(Intent(this, MainActivity::class.java))
+            else startActivity(Intent(this, AuthActivity::class.java))
+            finish()
+        }
+        launcherViewModel.checkUserSession()
     }
 }
