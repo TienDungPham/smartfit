@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_dashboard"
+        android:icon="@drawable/icon_dashboard"
+        android:title="@string/dashboard" />
+    <item
+        android:id="@+id/nav_courses"
+        android:icon="@drawable/icon_list"
+        android:title="@string/courses" />
+    <item
+        android:id="@+id/nav_meals"
+        android:icon="@drawable/icon_meal"
+        android:title="@string/meals" />
+    <item
+        android:id="@+id/nav_account"
+        android:icon="@drawable/icon_account"
+        android:title="@string/account" />
+</menu>

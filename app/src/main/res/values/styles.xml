@@ -5,4 +5,28 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="textPrimarySmall">
+        <item name="android:color">@color/colorPrimaryText</item>
+        <item name="android:textSize">@dimen/textSmallSize</item>
+        <item name="android:fontFamily">@font/roboto_mono</item>
+    </style>
+
+    <style name="textPrimaryMedium">
+        <item name="android:color">@color/colorPrimaryText</item>
+        <item name="android:textSize">@dimen/textMediumSize</item>
+        <item name="android:fontFamily">@font/roboto_mono</item>
+    </style>
+
+    <style name="textSecondarySmall">
+        <item name="android:color">@color/colorSecondaryText</item>
+        <item name="android:textSize">@dimen/textSmallSize</item>
+        <item name="android:fontFamily">@font/roboto_mono</item>
+    </style>
+
+    <style name="textSecondaryMedium">
+        <item name="android:color">@color/colorSecondaryText</item>
+        <item name="android:textSize">@dimen/textMediumSize</item>
+        <item name="android:fontFamily">@font/roboto_mono</item>
+    </style>
 </resources>

@@ -7,6 +7,6 @@
     <color name="colorPrimaryText">#000000</color>
     <color name="colorSecondaryText">#848484</color>
 
-    <color name="colorDivider">#80CDCDCD</color>
+    <color name="colorDivider">#CDCDCD</color>
     <color name="colorTextIcons">#FFFFFF</color>
 </resources>
