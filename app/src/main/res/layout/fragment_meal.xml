@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -15,12 +17,181 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/icon_arrow_back" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?actionBarSize" />
+            android:layout_marginTop="?actionBarSize">
+
+            <RelativeLayout
+                android:id="@+id/relative_layout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/relative_layout2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ProgressBar
+                    android:id="@+id/carbs_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/small_progress_circle_shape"
+                    android:max="100"
+                    android:progressDrawable="@drawable/small_progress_circle_bar"
+                    tools:max="100"
+                    tools:progress="25" />
+
+                <LinearLayout
+                    android:id="@+id/linear_layout1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/carbs_percent"
+
+                        style="@style/textPrimaryMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+                        tools:text="70%" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_layout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/relative_layout3"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/relative_layout1"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ProgressBar
+                    android:id="@+id/protein_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/small_progress_circle_shape"
+                    android:max="100"
+                    android:progressDrawable="@drawable/small_progress_circle_bar"
+                    tools:max="100"
+                    tools:progress="25" />
+
+                <LinearLayout
+                    android:id="@+id/linear_layout2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/protein_percent"
+                        style="@style/textPrimaryMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+                        tools:text="70%" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_layout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/relative_layout2"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ProgressBar
+                    android:id="@+id/fat_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/small_progress_circle_shape"
+                    android:max="100"
+                    android:progressDrawable="@drawable/small_progress_circle_bar"
+                    tools:max="100"
+                    tools:progress="25" />
+
+                <LinearLayout
+                    android:id="@+id/linear_layout3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/fat_percent"
+                        style="@style/textPrimaryMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textStyle="bold"
+                        tools:text="70%" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/carbs_title"
+                style="@style/textPrimarySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/carbs"
+                app:layout_constraintEnd_toEndOf="@+id/relative_layout1"
+                app:layout_constraintStart_toStartOf="@+id/relative_layout1"
+                app:layout_constraintTop_toBottomOf="@+id/relative_layout1" />
+
+            <TextView
+                android:id="@+id/protein_title"
+                style="@style/textPrimarySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/protein"
+                app:layout_constraintEnd_toEndOf="@+id/relative_layout2"
+                app:layout_constraintStart_toStartOf="@+id/relative_layout2"
+                app:layout_constraintTop_toBottomOf="@+id/relative_layout2" />
+
+            <TextView
+                android:id="@+id/fat_title"
+                style="@style/textPrimarySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/fat"
+                app:layout_constraintEnd_toEndOf="@+id/relative_layout3"
+                app:layout_constraintStart_toStartOf="@+id/relative_layout3"
+                app:layout_constraintTop_toBottomOf="@+id/relative_layout3" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/payment_rv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/protein_title"
+                tools:itemCount="10"
+                tools:listitem="@layout/item_meal" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/nav_dashboard"
         android:icon="@drawable/icon_dashboard"
-        android:title="@string/dashboard" />
+        android:title="@string/dashboard"
+        app:showAsAction="always" />
     <item
         android:id="@+id/nav_courses"
         android:icon="@drawable/icon_list"
-        android:title="@string/courses" />
+        android:title="@string/courses"
+        app:showAsAction="always" />
     <item
         android:id="@+id/nav_meals"
         android:icon="@drawable/icon_meal"
-        android:title="@string/meals" />
+        android:title="@string/meals"
+        app:showAsAction="always" />
     <item
         android:id="@+id/nav_account"
         android:icon="@drawable/icon_account"
-        android:title="@string/account" />
+        android:title="@string/account"
+        app:showAsAction="always" />
 </menu>

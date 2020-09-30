@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_nav_graph"
+    app:startDestination="@id/nav_sign_in">
+
+    <fragment
+        android:id="@+id/nav_sign_in"
+        android:name="com.smartfit.smartfit.ui.signin.SignInFragment"
+        android:label="Sign In"
+        tools:layout="@layout/fragment_sign_in">
+        <action
+            android:id="@+id/action_nav_sign_in_to_nav_sign_in_verify"
+            app:destination="@id/nav_sign_in_verify" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_sign_in_verify"
+        android:name="com.smartfit.smartfit.ui.signinverify.SignInVerifyFragment"
+        android:label="Sign In Verify"
+        tools:layout="@layout/fragment_sign_in_verify">
+        <action
+            android:id="@+id/action_nav_sign_in_verify_to_nav_sign_up"
+            app:destination="@id/nav_sign_up" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_sign_up"
+        android:name="com.smartfit.smartfit.ui.signup.SignUpFragment"
+        android:label="Sign Up"
+        tools:layout="@layout/fragment_sign_up" />
+</navigation>

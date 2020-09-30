@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/nav_dashboard">
+
+    <fragment
+        android:id="@+id/nav_dashboard"
+        android:name="com.smartfit.smartfit.ui.dashboard.DashboardFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/nav_courses"
+        android:name="com.smartfit.smartfit.ui.courses.CoursesFragment"
+        android:label="Courses"
+        tools:layout="@layout/fragment_courses">
+        <action
+            android:id="@+id/action_nav_courses_to_nav_course_preview"
+            app:destination="@id/nav_course_preview" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_meal"
+        android:name="com.smartfit.smartfit.ui.meal.MealFragment"
+        android:label="Meal"
+        tools:layout="@layout/fragment_meal" />
+    <fragment
+        android:id="@+id/nav_account"
+        android:name="com.smartfit.smartfit.ui.account.AccountFragment"
+        android:label="Account"
+        tools:layout="@layout/fragment_account">
+        <action
+            android:id="@+id/action_nav_account_to_nav_settings"
+            app:destination="@id/nav_settings" />
+        <action
+            android:id="@+id/action_nav_account_to_nav_payment_history"
+            app:destination="@id/nav_payment_history" />
+        <action
+            android:id="@+id/action_nav_account_to_nav_update_account"
+            app:destination="@id/nav_update_account" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_course_preview"
+        android:name="com.smartfit.smartfit.ui.coursepreview.CoursePreviewFragment"
+        android:label="Course Preview"
+        tools:layout="@layout/fragment_course_preview">
+        <action
+            android:id="@+id/action_nav_course_preview_to_nav_course_class"
+            app:destination="@id/nav_course_class" />
+        <action
+            android:id="@+id/action_nav_course_preview_to_nav_course_workout"
+            app:destination="@id/nav_course_workout" />
+        <action
+            android:id="@+id/action_nav_course_preview_to_nav_checkout"
+            app:destination="@id/nav_checkout" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_course_class"
+        android:name="com.smartfit.smartfit.ui.courseclass.CourseClassFragment"
+        android:label="Course Class"
+        tools:layout="@layout/fragment_course_class" />
+    <fragment
+        android:id="@+id/nav_course_workout"
+        android:name="com.smartfit.smartfit.ui.courseworkout.CourseWorkoutFragment"
+        android:label="Course Workout"
+        tools:layout="@layout/fragment_course_workout" />
+    <fragment
+        android:id="@+id/nav_checkout"
+        android:name="com.smartfit.smartfit.ui.checkout.CheckoutFragment"
+        android:label="Checkout"
+        tools:layout="@layout/fragment_checkout" />
+    <fragment
+        android:id="@+id/nav_payment_history"
+        android:name="com.smartfit.smartfit.ui.paymenthistory.PaymentHistoryFragment"
+        android:label="Payment History"
+        tools:layout="@layout/fragment_payment_history" />
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.smartfit.smartfit.ui.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/nav_update_account"
+        android:name="com.smartfit.smartfit.ui.updateaccount.UpdateAccountFragment"
+        android:label="Update Account"
+        tools:layout="@layout/fragment_update_account" />
+</navigation>

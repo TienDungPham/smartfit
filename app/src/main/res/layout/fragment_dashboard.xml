@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -18,9 +19,20 @@
                 android:layout_height="?attr/actionBarSize" />
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.motion.widget.MotionLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?actionBarSize" />
+            android:layout_marginTop="?actionBarSize"
+            app:layoutDescription="@xml/fragment_dashboard_scene">
+
+            <include
+                android:id="@+id/include_user_progress"
+                layout="@layout/include_user_progress" />
+
+            <include
+                android:id="@+id/include_user_courses"
+                layout="@layout/include_user_courses" />
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

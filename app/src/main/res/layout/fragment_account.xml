@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -15,12 +17,110 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/icon_arrow_back" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?actionBarSize" />
+            android:layout_marginTop="?actionBarSize">
+
+            <ImageView
+                android:id="@+id/account_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/image_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@drawable/sample_profile" />
+
+            <TextView
+                android:id="@+id/weight_value"
+                style="@style/textPrimarySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/weight_title"
+                app:layout_constraintEnd_toEndOf="@+id/weight_title"
+                app:layout_constraintStart_toStartOf="@+id/weight_title"
+                app:layout_constraintTop_toBottomOf="@+id/account_image"
+                tools:text="50KG" />
+
+            <TextView
+                android:id="@+id/weight_title"
+                style="@style/textPrimarySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/weight"
+                app:layout_constraintEnd_toStartOf="@+id/height_title"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/weight_value" />
+
+            <TextView
+                android:id="@+id/height_value"
+                style="@style/textPrimarySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/height_title"
+                app:layout_constraintEnd_toEndOf="@+id/height_title"
+                app:layout_constraintStart_toStartOf="@+id/height_title"
+                app:layout_constraintTop_toBottomOf="@+id/account_image"
+                tools:text="170 CM" />
+
+            <TextView
+                android:id="@+id/height_title"
+                style="@style/textPrimarySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/height"
+                app:layout_constraintEnd_toStartOf="@+id/bmi_title"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/weight_title"
+                app:layout_constraintTop_toBottomOf="@+id/height_value" />
+
+            <TextView
+                android:id="@+id/bmi_value"
+                style="@style/textPrimarySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/bmi_title"
+                app:layout_constraintEnd_toEndOf="@+id/bmi_title"
+                app:layout_constraintStart_toStartOf="@+id/bmi_title"
+                app:layout_constraintTop_toBottomOf="@+id/account_image"
+                tools:text="5.5" />
+
+            <TextView
+                android:id="@+id/bmi_title"
+                style="@style/textPrimarySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bmi"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/height_title"
+                app:layout_constraintTop_toBottomOf="@+id/bmi_value" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/action_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/height_title"
+                tools:itemCount="4"
+                tools:listitem="@layout/item_setting" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

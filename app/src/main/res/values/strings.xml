@@ -4,4 +4,57 @@
     <string name="courses">Courses</string>
     <string name="meals">Meals</string>
     <string name="account">Account</string>
+
+    <string name="sign_in_title">Sign up to keep exploring amazing workout courses</string>
+    <string name="sign_in_guide">Enter your phone number. We will send your a verification code so we know you are real.</string>
+    <string name="sign_in_other">By provide your phone number. You agree and accept the Term of Service and Privacy Policy in use of SmartFit</string>
+    <string name="your_country_code">+84</string>
+    <string name="your_phone_number">Your phone number</string>
+    <string name="send_otp">Send OTP</string>
+
+    <string name="sign_in_verify_title">Verify your phone number</string>
+    <string name="sign_in_verify_guide">Enter your OTP here</string>
+    <string name="sign_in_verify_error">Did not receive any code</string>
+    <string name="sign_in_verify_resend">Resend new code</string>
+    <string name="verify_code_hint">*  *  *  *  *  *</string>
+
+    <string name="sign_up_title">Create your account</string>
+    <string name="sign_up_guide">Welcome, please enter your information below to getting started</string>
+    <string name="done">Done</string>
+
+    <string name="your_name">Your Name</string>
+    <string name="your_weight">Your Weight</string>
+    <string name="your_height">Your Height</string>
+    <string name="your_age">Your Age</string>
+    <string name="your_gender">Your Gender</string>
+    <string name="your_goal">Your Goal</string>
+    <string name="reset">Reset</string>
+    <string name="save">Save</string>
+
+    <string name="dashboard_title">Daily Goal</string>
+    <string name="workouts">Workouts</string>
+    <string name="minutes">Minutes</string>
+    <string name="calories">Calories</string>
+    <string name="left">left</string>
+    <string name="recent_courses">Recent Courses</string>
+
+    <string name="program">Program</string>
+    <string name="start">Start</string>
+    <string name="course_content">Course Content</string>
+
+    <string name="payments_history">Payments History</string>
+    <string name="type">Type</string>
+    <string name="status">Status</string>
+    <string name="expiry_time">Expiry Time</string>
+
+    <string name="carbs">Carbs</string>
+    <string name="protein">Protein</string>
+    <string name="fat">Fat</string>
+    <string name="add">Add</string>
+
+    <string name="weight">Weight</string>
+    <string name="height">Height</string>
+    <string name="bmi">BMI</string>
+
+    <string name="image_description">Image Description</string>
 </resources>
