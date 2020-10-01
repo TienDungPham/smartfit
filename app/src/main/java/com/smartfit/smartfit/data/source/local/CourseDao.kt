@@ -23,4 +23,7 @@ interface CourseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveCourseSteps(courseSteps: List<CourseStep>)
+
+    @Query("SELECT * FROM CourseStep WHERE id = :id")
+    fun findStepDetail(id: Long): CourseStep
 }

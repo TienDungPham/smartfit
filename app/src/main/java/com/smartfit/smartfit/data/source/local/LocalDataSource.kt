@@ -15,6 +15,9 @@ class LocalDataSource(
     fun saveUserAccess(userAccess: UserAccess) =
         appDatabase.userDao().saveUserAccess(userAccess)
 
+    fun deleteUserAccess(userAccess: UserAccess) =
+        appDatabase.userDao().deleteUserAccess(userAccess)
+
     fun findUserProgress(): Flow<UserProgress> =
         appDatabase.userDao().findUserProgress()
 
@@ -52,4 +55,21 @@ class LocalDataSource(
 
     fun saveUserMeals(meals: List<UserMeal>) =
         appDatabase.userDao().saveUserMeals(meals)
+
+    fun findUserProfile(): Flow<UserProfile> = appDatabase.userDao().findUserProfile()
+
+    fun saveUserProfile(userProfile: UserProfile) =
+        appDatabase.userDao().saveUserProfile(userProfile)
+
+    fun findUserOrderWithPayment(): Flow<UserOrderWithPayments> =
+        appDatabase.userDao().findUserOrder()
+
+    fun saveUserOrder(userOrder: UserOrder) =
+        appDatabase.userDao().saveUserOrder(userOrder)
+
+    fun saveUserPayments(userPayments: List<UserPayment>) =
+        appDatabase.userDao().saveUserPayments(userPayments)
+
+    fun findStepDetail(id: Long): CourseStep =
+        appDatabase.courseDao().findStepDetail(id)
 }

@@ -12,6 +12,9 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveUserAccess(userAccess: UserAccess)
 
+    @Delete
+    fun deleteUserAccess(userAccess: UserAccess)
+
     @Query("SELECT * FROM UserProfile LIMIT 1")
     fun findUserProfile(): Flow<UserProfile>
 

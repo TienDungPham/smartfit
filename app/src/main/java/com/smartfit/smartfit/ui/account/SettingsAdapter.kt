@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.smartfit.smartfit.data.ActionItem
 import com.smartfit.smartfit.databinding.ItemSettingBinding
 
-class SettingsAdapter :
+class SettingsAdapter(private val callback: (Int) -> Unit) :
     ListAdapter<ActionItem, SettingsAdapter.ViewHolder>(SettingsDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -17,13 +18,23 @@ class SettingsAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, position)
+        holder.bind(item, position, callback)
     }
 
     class ViewHolder(private val binding: ItemSettingBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: ActionItem, position: Int) {
+        fun bind(item: ActionItem, position: Int, callback: (Int) -> Unit) {
+            binding.actionTitle.text = item.title
+
+            binding.actionItem.setOnClickListener {
+                callback(position)
+            }
+
+            Glide.with(binding.actionImage)
+                .load("")
+                .error(item.img)
+                .into(binding.actionImage)
             binding.executePendingBindings()
         }
 

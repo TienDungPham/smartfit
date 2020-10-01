@@ -2,9 +2,7 @@ package com.smartfit.smartfit.data.source.remote
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.smartfit.smartfit.data.transfer.*
-import com.smartfit.smartfit.data.transfer.up.SignIn
-import com.smartfit.smartfit.data.transfer.up.SignUp
-import com.smartfit.smartfit.data.transfer.up.UpdateUserMeal
+import com.smartfit.smartfit.data.transfer.up.*
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.CoroutineDispatcher
@@ -49,6 +47,9 @@ class RemoteDataSource(
     suspend fun signUp(signUp: SignUp): UserAccessDTO =
         authService.signUpAsync(signUp).await()
 
+    suspend fun signOut(accessToken: String): Boolean =
+        authService.signOutAsync(accessToken).await()
+
     suspend fun findUserProgress(accessToken: String): UserProgressDTO =
         infoService.findUserProgressAsync(accessToken).await()
 
@@ -78,4 +79,28 @@ class RemoteDataSource(
 
     suspend fun updateUserMeal(accessToken: String, updateUserMeal: UpdateUserMeal): Boolean =
         infoService.updateUserMealAsync(accessToken, updateUserMeal).await()
+
+    suspend fun findUserProfile(accessToken: String): UserProfileDTO =
+        infoService.findUserProfileAsync(accessToken).await()
+
+    suspend fun updateUserProfile(
+        accessToken: String,
+        updateUserProfile: UpdateUserProfile
+    ): Boolean =
+        infoService.updateUserProfileAsync(accessToken, updateUserProfile).await()
+
+    suspend fun findUserOrder(accessToken: String): UserOrderDTO =
+        infoService.findUserOrderAsync(accessToken).await()
+
+    suspend fun updateUserCourse(
+        accessToken: String,
+        updateUserCourse: UpdateUserCourse
+    ): Boolean =
+        infoService.updateUserCourseAsync(accessToken, updateUserCourse).await()
+
+    suspend fun updateUserSession(
+        accessToken: String,
+        updateUserSession: UpdateUserSession
+    ): Boolean =
+        infoService.updateUserSessionAsync(accessToken, updateUserSession).await()
 }

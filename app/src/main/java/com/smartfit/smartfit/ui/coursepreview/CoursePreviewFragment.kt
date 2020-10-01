@@ -27,6 +27,7 @@ class CoursePreviewFragment : Fragment() {
     }
 
     private var navigateCommand: String? = null
+    private var stepId: Long? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +47,7 @@ class CoursePreviewFragment : Fragment() {
 
         val courseStepAdapter = StepAdapter {
             navigateCommand = "TO_CLASS"
+            stepId = it
             arguments?.getLong("courseId")?.let {
                 coursePreviewViewModel.checkUserAccess(it)
                 (requireActivity() as MainActivity).showLoadingDialog("Please wait.....")
@@ -79,7 +81,7 @@ class CoursePreviewFragment : Fragment() {
                 coursePreviewViewModel.resetUserAccess()
                 arguments?.getLong("courseId")?.let {
                     val bundle = Bundle()
-                    bundle.putLong("courseId", it)
+                    bundle.putLong("stepId", stepId!!)
                     if (navigateCommand == "TO_WORKOUT") {
                         findNavController().navigate(
                             R.id.action_nav_course_preview_to_nav_course_workout,

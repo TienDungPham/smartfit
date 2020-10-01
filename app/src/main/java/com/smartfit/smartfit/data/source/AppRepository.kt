@@ -4,9 +4,7 @@ import com.smartfit.smartfit.data.entity.*
 import com.smartfit.smartfit.data.source.local.LocalDataSource
 import com.smartfit.smartfit.data.source.remote.RemoteDataSource
 import com.smartfit.smartfit.data.transfer.*
-import com.smartfit.smartfit.data.transfer.up.SignIn
-import com.smartfit.smartfit.data.transfer.up.SignUp
-import com.smartfit.smartfit.data.transfer.up.UpdateUserMeal
+import com.smartfit.smartfit.data.transfer.up.*
 import com.smartfit.smartfit.utils.Utils
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -60,6 +58,15 @@ class AppRepository(
                 return@withContext false
             }
         }
+
+    suspend fun signOut() = withContext(dispatcher) {
+        try {
+            val userAccess = findAccessToken()
+            remoteDataSource.signOut(userAccess.accessToken)
+            localDataSource.deleteUserAccess(userAccess)
+        } catch (e: Exception) {
+        }
+    }
 
     fun findUserProgress(): Flow<UserProgress> =
         localDataSource.findUserProgress().flowOn(dispatcher)
@@ -163,8 +170,69 @@ class AppRepository(
     suspend fun updateUserMeal(updateUserMeal: UpdateUserMeal) = withContext(dispatcher) {
         try {
             val userAccess = findAccessToken()
-            val remoteMeals =
+            val isSuccess =
                 remoteDataSource.updateUserMeal(userAccess.accessToken, updateUserMeal)
+        } catch (e: HttpException) {
+            throw java.lang.IllegalStateException("Http Error")
+        }
+    }
+
+    fun findUserProfile(): Flow<UserProfile> =
+        localDataSource.findUserProfile().flowOn(dispatcher)
+
+    suspend fun syncUserProfile() = withContext(dispatcher) {
+        try {
+            val userAccess = findAccessToken()
+            val remoteUserProfile = remoteDataSource.findUserProfile(userAccess.accessToken)
+            localDataSource.saveUserProfile(UserProfileDTO.mapToUserProfile(remoteUserProfile))
+        } catch (e: HttpException) {
+            throw java.lang.IllegalStateException("Http Error")
+        }
+    }
+
+    suspend fun updateUserProfile(updateUserProfile: UpdateUserProfile) = withContext(dispatcher) {
+        try {
+            val userAccess = findAccessToken()
+            val isSuccess =
+                remoteDataSource.updateUserProfile(userAccess.accessToken, updateUserProfile)
+        } catch (e: HttpException) {
+            throw java.lang.IllegalStateException("Http Error")
+        }
+    }
+
+    fun findUserOrderWithPayment(): Flow<UserOrderWithPayments> =
+        localDataSource.findUserOrderWithPayment().flowOn(dispatcher)
+
+    suspend fun syncUserOrderWithPayment() = withContext(dispatcher) {
+        try {
+            val userAccess = findAccessToken()
+            val userOrder = remoteDataSource.findUserOrder(userAccess.accessToken)
+            localDataSource.saveUserOrder(UserOrderDTO.mapToUserOrder(userOrder))
+            localDataSource.saveUserPayments(UserOrderDTO.mapToUserPayments(userOrder))
+        } catch (e: HttpException) {
+            throw java.lang.IllegalStateException("Http Error")
+        }
+    }
+
+    suspend fun findStepDetail(id: Long): CourseStep = withContext(dispatcher) {
+        return@withContext localDataSource.findStepDetail(id)
+    }
+
+    suspend fun updateUserCourse(updateUserCourse: UpdateUserCourse) = withContext(dispatcher) {
+        try {
+            val userAccess = findAccessToken()
+            val isSuccess =
+                remoteDataSource.updateUserCourse(userAccess.accessToken, updateUserCourse)
+        } catch (e: HttpException) {
+            throw java.lang.IllegalStateException("Http Error")
+        }
+    }
+
+    suspend fun updateUserSession(updateUserSession: UpdateUserSession) = withContext(dispatcher) {
+        try {
+            val userAccess = findAccessToken()
+            val isSuccess =
+                remoteDataSource.updateUserSession(userAccess.accessToken, updateUserSession)
         } catch (e: HttpException) {
             throw java.lang.IllegalStateException("Http Error")
         }

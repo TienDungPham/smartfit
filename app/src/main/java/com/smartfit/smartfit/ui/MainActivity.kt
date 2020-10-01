@@ -1,6 +1,7 @@
 package com.smartfit.smartfit.ui
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -56,6 +57,12 @@ class MainActivity : AppCompatActivity() {
             val addMealFragment = AddMealFragment()
             addMealFragment.show(supportFragmentManager, "ModalBottomSheet")
         }
+
+        mainViewModel.isSignOutSuccess.observe(this) {
+            closeLoadingDialog()
+            startActivity(Intent(this, LauncherActivity::class.java))
+            finish()
+        }
     }
 
     fun hideBottomAppBar() {
@@ -78,5 +85,10 @@ class MainActivity : AppCompatActivity() {
 
     fun closeLoadingDialog() {
         loadingDialog.dismiss()
+    }
+
+    fun signOut() {
+        showLoadingDialog("Signing Out....")
+        mainViewModel.signOut()
     }
 }

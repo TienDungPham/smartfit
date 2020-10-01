@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.smartfit.smartfit.R
 import com.smartfit.smartfit.data.entity.UserPayment
 import com.smartfit.smartfit.databinding.ItemPaymentBinding
 
@@ -24,6 +26,16 @@ class PaymentAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: UserPayment, position: Int) {
+            binding.apply {
+                statusTitle.text = item.status
+                paymentDescription.text = item.description
+                totalPrice.text = item.totalPrice.toString()
+            }
+
+            Glide.with(binding.statusImage)
+                .load("")
+                .error(if (item.status == "Done") R.drawable.icon_success_rounded else R.drawable.icon_fail)
+                .into(binding.statusImage)
             binding.executePendingBindings()
         }
 
