@@ -97,7 +97,8 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:navigationIcon="@drawable/icon_arrow_back_rounded" />
+                app:navigationIcon="@drawable/icon_arrow_back_rounded"
+                app:titleTextColor="@color/colorTextIcons" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

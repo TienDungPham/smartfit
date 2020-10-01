@@ -79,15 +79,18 @@ class CoursePreviewFragment : Fragment() {
             if (it == null) return@observe
             if (it) {
                 coursePreviewViewModel.resetUserAccess()
-                arguments?.getLong("courseId")?.let {
+                arguments?.getLong("courseId")?.let { cid ->
                     val bundle = Bundle()
-                    bundle.putLong("stepId", stepId!!)
+
                     if (navigateCommand == "TO_WORKOUT") {
+                        bundle.putLong("courseId", cid)
                         findNavController().navigate(
                             R.id.action_nav_course_preview_to_nav_course_workout,
                             bundle
                         )
                     } else {
+                        bundle.putLong("courseId", cid)
+                        bundle.putLong("stepId", stepId!!)
                         findNavController().navigate(
                             R.id.action_nav_course_preview_to_nav_course_class,
                             bundle

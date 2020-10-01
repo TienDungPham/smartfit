@@ -40,7 +40,7 @@ data class PosePredict(
                     PoseLandmark.Type.RIGHT_KNEE,
                     PoseLandmark.Type.RIGHT_ANKLE,
                     10.0,
-                    90.0,
+                    120.0,
                     "Bend your right leg 80%",
                     "Bend your right leg 80%"
                 )
