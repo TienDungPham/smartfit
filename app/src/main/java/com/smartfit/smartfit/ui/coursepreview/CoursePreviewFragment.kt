@@ -9,8 +9,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.smartfit.smartfit.R
 import com.smartfit.smartfit.appComponent
 import com.smartfit.smartfit.databinding.FragmentCoursePreviewBinding
+import com.smartfit.smartfit.ui.MainActivity
 import javax.inject.Inject
 
 class CoursePreviewFragment : Fragment() {
@@ -22,6 +26,8 @@ class CoursePreviewFragment : Fragment() {
         viewModelFactory
     }
 
+    private var navigateCommand: String? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,6 +35,73 @@ class CoursePreviewFragment : Fragment() {
         binding = FragmentCoursePreviewBinding.inflate(inflater, container, false)
         binding.toolbar.setupWithNavController(findNavController())
         appComponent(requireContext()).injectCoursePreviewFragment(this)
+
+        binding.startButton.setOnClickListener {
+            navigateCommand = "TO_WORKOUT"
+            arguments?.getLong("courseId")?.let {
+                coursePreviewViewModel.checkUserAccess(it)
+                (requireActivity() as MainActivity).showLoadingDialog("Please wait.....")
+            }
+        }
+
+        val courseStepAdapter = StepAdapter {
+            navigateCommand = "TO_CLASS"
+            arguments?.getLong("courseId")?.let {
+                coursePreviewViewModel.checkUserAccess(it)
+                (requireActivity() as MainActivity).showLoadingDialog("Please wait.....")
+            }
+        }
+        binding.courseStepRv.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = courseStepAdapter
+        }
+
+        coursePreviewViewModel.courseDetail.observe(viewLifecycleOwner) {
+            if (it == null) return@observe
+            (requireActivity() as MainActivity).closeLoadingDialog()
+            binding.apply {
+                courseName.text = it.course.name
+                courseVariant.text =
+                    "${it.course.courseType} - ${it.course.level} - ${it.course.estimatedTime}H"
+                courseDescription.text = it.course.description
+                courseStepAdapter.submitList(it.steps)
+
+                Glide.with(binding.courseImage)
+                    .load(it.course.imageUrl)
+                    .into(binding.courseImage)
+            }
+        }
+
+        coursePreviewViewModel.isUserAllow.observe(viewLifecycleOwner) {
+            (requireActivity() as MainActivity).closeLoadingDialog()
+            if (it == null) return@observe
+            if (it) {
+                coursePreviewViewModel.resetUserAccess()
+                arguments?.getLong("courseId")?.let {
+                    val bundle = Bundle()
+                    bundle.putLong("courseId", it)
+                    if (navigateCommand == "TO_WORKOUT") {
+                        findNavController().navigate(
+                            R.id.action_nav_course_preview_to_nav_course_workout,
+                            bundle
+                        )
+                    } else {
+                        findNavController().navigate(
+                            R.id.action_nav_course_preview_to_nav_course_class,
+                            bundle
+                        )
+                    }
+                }
+            } else {
+                coursePreviewViewModel.resetUserAccess()
+                findNavController().navigate(R.id.action_nav_course_preview_to_nav_checkout)
+            }
+        }
+
+        arguments?.getLong("courseId")?.let {
+            (requireActivity() as MainActivity).showLoadingDialog("Please wait.....")
+            coursePreviewViewModel.findCourseDetail(it)
+        }
 
         return binding.root
     }

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.smartfit.smartfit.data.entity.CourseStep
 import com.smartfit.smartfit.databinding.ItemCourseStepBinding
 
-class StepAdapter :
+class StepAdapter(private val callback: (Long) -> Unit) :
     ListAdapter<CourseStep, StepAdapter.ViewHolder>(StepDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -17,13 +17,18 @@ class StepAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, position)
+        holder.bind(item, position, callback)
     }
 
     class ViewHolder(private val binding: ItemCourseStepBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: CourseStep, position: Int) {
+        fun bind(item: CourseStep, position: Int, callback: (Long) -> Unit) {
+            binding.stepOrder.text = (position + 1).toString()
+            binding.stepName.text = item.name
+            binding.courseStep.setOnClickListener {
+                callback(item.id)
+            }
             binding.executePendingBindings()
         }
 

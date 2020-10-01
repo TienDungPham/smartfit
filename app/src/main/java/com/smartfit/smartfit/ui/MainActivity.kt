@@ -1,5 +1,6 @@
 package com.smartfit.smartfit.ui
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -21,11 +22,14 @@ class MainActivity : AppCompatActivity() {
         viewModelFactory
     }
 
+    private lateinit var loadingDialog: ProgressDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         appComponent(this).injectMainActivity(this)
+        loadingDialog = ProgressDialog(this)
 
         val navController = findNavController(R.id.main_host_fragment)
         binding.bottomAppBar.setOnMenuItemClickListener {
@@ -54,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun hideBottomAppBar() {
+    fun hideBottomAppBar() {
         binding.bottomAppBar.visibility = View.GONE
         binding.addMeal.visibility = View.GONE
     }
@@ -62,5 +66,17 @@ class MainActivity : AppCompatActivity() {
     fun showBottomAppBar() {
         binding.bottomAppBar.visibility = View.VISIBLE
         binding.addMeal.visibility = View.VISIBLE
+    }
+
+    fun showLoadingDialog(message: String) {
+        loadingDialog.apply {
+            setMessage(message)
+            setCancelable(true)
+            show()
+        }
+    }
+
+    fun closeLoadingDialog() {
+        loadingDialog.dismiss()
     }
 }

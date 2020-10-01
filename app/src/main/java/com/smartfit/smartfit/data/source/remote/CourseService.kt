@@ -12,4 +12,10 @@ interface CourseService {
 
     @GET("course/detail")
     fun findCourseDetailAsync(@Query("id") id: Int): Deferred<CourseDetailDTO>
+
+    @GET("course/access-check")
+    fun checkUserAccessAsync(
+        @Query("id") id: Int,
+        @Query("accessToken") accessToken: String
+    ): Deferred<Boolean>
 }

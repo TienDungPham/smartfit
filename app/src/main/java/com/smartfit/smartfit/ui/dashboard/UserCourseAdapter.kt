@@ -11,7 +11,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.smartfit.smartfit.data.entity.UserCourse
 import com.smartfit.smartfit.databinding.ItemUserCourseBinding
 
-class UserCourseAdapter :
+class UserCourseAdapter(private val callback: (Long) -> Unit) :
     ListAdapter<UserCourse, UserCourseAdapter.ViewHolder>(UserCourseDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,16 +20,19 @@ class UserCourseAdapter :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, position)
+        holder.bind(item, position, callback)
     }
 
     class ViewHolder(private val binding: ItemUserCourseBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: UserCourse, position: Int) {
+        fun bind(item: UserCourse, position: Int, callback: (Long) -> Unit) {
             binding.courseName.text = item.courseName
             binding.courseProgress.text = "Completed - ${item.courseProgress} %"
             binding.courseProgressBar.progress = item.courseProgress
+            binding.userCourse.setOnClickListener {
+                callback(item.id)
+            }
 
             Glide.with(binding.root)
                 .load(item.courseImageUrl)

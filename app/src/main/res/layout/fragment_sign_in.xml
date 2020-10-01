@@ -76,11 +76,11 @@
                     android:id="@+id/input_country_code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/item_country_code" />
+                    tools:listitem="@android:layout/simple_list_item_1" />
 
                 <EditText
                     android:id="@+id/input_phone_number"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"

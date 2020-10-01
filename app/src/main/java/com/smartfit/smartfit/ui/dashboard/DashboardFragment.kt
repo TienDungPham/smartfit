@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.smartfit.smartfit.R
 import com.smartfit.smartfit.appComponent
 import com.smartfit.smartfit.databinding.FragmentDashboardBinding
 import com.smartfit.smartfit.ui.MainActivity
@@ -33,10 +35,19 @@ class DashboardFragment : Fragment() {
         (requireActivity() as MainActivity).showBottomAppBar()
         appComponent(requireContext()).injectDashboardFragment(this)
 
-        userCourseAdapter = UserCourseAdapter()
-        binding.includeUserCourses.recentCoursesRv.layoutManager =
-            LinearLayoutManager(requireContext())
-        binding.includeUserCourses.recentCoursesRv.adapter = userCourseAdapter
+        userCourseAdapter = UserCourseAdapter {
+            (requireActivity() as MainActivity).hideBottomAppBar()
+            val bundle = Bundle()
+            bundle.putLong("courseId", it)
+            findNavController().navigate(
+                R.id.action_nav_dashboard_to_nav_course_preview,
+                bundle
+            )
+        }
+        binding.includeUserCourses.recentCoursesRv.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = userCourseAdapter
+        }
 
         dashboardViewModel.userProgress.observe(viewLifecycleOwner) {
             if (it == null) return@observe

@@ -9,7 +9,11 @@
         android:id="@+id/nav_dashboard"
         android:name="com.smartfit.smartfit.ui.dashboard.DashboardFragment"
         android:label="Dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_nav_dashboard_to_nav_course_preview"
+            app:destination="@id/nav_course_preview" />
+    </fragment>
     <fragment
         android:id="@+id/nav_courses"
         android:name="com.smartfit.smartfit.ui.courses.CoursesFragment"

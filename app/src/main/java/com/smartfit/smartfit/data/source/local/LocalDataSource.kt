@@ -1,8 +1,6 @@
 package com.smartfit.smartfit.data.source.local
 
-import com.smartfit.smartfit.data.entity.UserAccess
-import com.smartfit.smartfit.data.entity.UserCourse
-import com.smartfit.smartfit.data.entity.UserProgress
+import com.smartfit.smartfit.data.entity.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -28,4 +26,19 @@ class LocalDataSource(
 
     fun saveUserCourses(userCourses: List<UserCourse>) =
         appDatabase.userDao().saveUserCourses(userCourses)
+
+    fun findAllCourses(): Flow<List<Course>> =
+        appDatabase.courseDao().findAllCourses()
+
+    fun findCourseDetail(id: Long): CourseWithSteps =
+        appDatabase.courseDao().findCourseDetail(id)
+
+    fun saveCourse(course: Course) =
+        appDatabase.courseDao().saveCourse(course)
+
+    fun saveCourses(courses: List<Course>) =
+        appDatabase.courseDao().saveCourses(courses)
+
+    fun saveCourseSteps(courseSteps: List<CourseStep>) =
+        appDatabase.courseDao().saveCourseSteps(courseSteps)
 }

@@ -1,15 +1,14 @@
 package com.smartfit.smartfit.data.source.remote
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.smartfit.smartfit.data.transfer.UserAccessDTO
-import com.smartfit.smartfit.data.transfer.UserCourseDTO
-import com.smartfit.smartfit.data.transfer.UserProgressDTO
+import com.smartfit.smartfit.data.transfer.*
 import com.smartfit.smartfit.data.transfer.up.SignIn
 import com.smartfit.smartfit.data.transfer.up.SignUp
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -54,4 +53,19 @@ class RemoteDataSource(
 
     suspend fun findUserCourses(accessToken: String): List<UserCourseDTO> =
         infoService.findUserCoursesAsync(accessToken).await()
+
+    suspend fun findAllCourses(): List<CourseDTO> =
+        courseService.findAllCourseAsync().await()
+
+    suspend fun findCourseDetail(id: Int): CourseDetailDTO =
+        courseService.findCourseDetailAsync(id).await()
+
+    suspend fun checkUserAccess(id: Int, accessToken: String): Boolean =
+        withContext(dispatcher) {
+            try {
+                return@withContext courseService.checkUserAccessAsync(id, accessToken).await()
+            } catch (e: Exception) {
+                return@withContext false
+            }
+        }
 }

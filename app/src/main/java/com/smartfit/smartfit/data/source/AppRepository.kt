@@ -1,13 +1,9 @@
 package com.smartfit.smartfit.data.source
 
-import com.smartfit.smartfit.data.entity.UserAccess
-import com.smartfit.smartfit.data.entity.UserCourse
-import com.smartfit.smartfit.data.entity.UserProgress
+import com.smartfit.smartfit.data.entity.*
 import com.smartfit.smartfit.data.source.local.LocalDataSource
 import com.smartfit.smartfit.data.source.remote.RemoteDataSource
-import com.smartfit.smartfit.data.transfer.UserAccessDTO
-import com.smartfit.smartfit.data.transfer.UserCourseDTO
-import com.smartfit.smartfit.data.transfer.UserProgressDTO
+import com.smartfit.smartfit.data.transfer.*
 import com.smartfit.smartfit.data.transfer.up.SignIn
 import com.smartfit.smartfit.data.transfer.up.SignUp
 import com.smartfit.smartfit.utils.Utils
@@ -49,7 +45,6 @@ class AppRepository(
                 localDataSource.saveUserAccess(UserAccessDTO.mapToUserAccess(remoteUserAccess))
                 return@withContext true
             } catch (e: HttpException) {
-
                 return@withContext false
             }
         }
@@ -97,5 +92,45 @@ class AppRepository(
 
     suspend fun findAccessToken(): UserAccess = withContext(dispatcher) {
         return@withContext localDataSource.findUserAccess()
+    }
+
+    fun findAllCourses(): Flow<List<Course>> =
+        localDataSource.findAllCourses().flowOn(dispatcher)
+
+    suspend fun syncAllCourses() = withContext(dispatcher) {
+        try {
+            val remoteCourses = remoteDataSource.findAllCourses()
+            val courses = LinkedList<Course>()
+            remoteCourses.forEach {
+                courses.add(CourseDTO.mapToCourse(it))
+            }
+            localDataSource.saveCourses(courses)
+        } catch (e: HttpException) {
+            throw IllegalStateException("Http Error")
+        }
+    }
+
+    suspend fun findCourseDetail(id: Long): CourseWithSteps =
+        withContext(dispatcher) {
+            return@withContext localDataSource.findCourseDetail(id)
+        }
+
+    suspend fun syncCourseDetail(id: Long) = withContext(dispatcher) {
+        try {
+            val remoteCourseDetail = remoteDataSource.findCourseDetail(id.toInt())
+            localDataSource.saveCourse(CourseDetailDTO.mapToCourse(remoteCourseDetail))
+            localDataSource.saveCourseSteps(CourseDetailDTO.mapToCourseSteps(remoteCourseDetail))
+        } catch (e: HttpException) {
+            throw java.lang.IllegalStateException("Http Error")
+        }
+    }
+
+    suspend fun checkUserAccess(id: Long): Boolean = withContext(dispatcher) {
+        try {
+            val userAccess = findAccessToken()
+            return@withContext remoteDataSource.checkUserAccess(id.toInt(), userAccess.accessToken)
+        } catch (e: HttpException) {
+            return@withContext true
+        }
     }
 }
