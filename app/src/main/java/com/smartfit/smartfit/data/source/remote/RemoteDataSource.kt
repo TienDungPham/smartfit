@@ -2,6 +2,8 @@ package com.smartfit.smartfit.data.source.remote
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.smartfit.smartfit.data.transfer.UserAccessDTO
+import com.smartfit.smartfit.data.transfer.UserCourseDTO
+import com.smartfit.smartfit.data.transfer.UserProgressDTO
 import com.smartfit.smartfit.data.transfer.up.SignIn
 import com.smartfit.smartfit.data.transfer.up.SignUp
 import com.squareup.moshi.Moshi
@@ -46,4 +48,10 @@ class RemoteDataSource(
 
     suspend fun signUp(signUp: SignUp): UserAccessDTO =
         authService.signUpAsync(signUp).await()
+
+    suspend fun findUserProgress(accessToken: String): UserProgressDTO =
+        infoService.findUserProgressAsync(accessToken).await()
+
+    suspend fun findUserCourses(accessToken: String): List<UserCourseDTO> =
+        infoService.findUserCoursesAsync(accessToken).await()
 }

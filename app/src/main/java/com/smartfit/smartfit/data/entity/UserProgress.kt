@@ -9,5 +9,6 @@ data class UserProgress(
     val id: Long = 1,
     var calories: Int,
     var minutes: String,
-    var workouts: Int
+    var workouts: Int,
+    var goal: Int
 )

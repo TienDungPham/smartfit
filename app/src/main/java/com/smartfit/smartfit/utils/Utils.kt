@@ -20,6 +20,6 @@ object Utils {
     }
 
     fun getGoals(): List<String> {
-        return listOf("Maintain Weight", "Mild Weight Loss", "Weight Loss", "Extreme Weight Loss")
+        return listOf("Maintain Weight", "Mile Weight Loss", "Weight Loss", "Extreme Weight Loss")
     }
 }

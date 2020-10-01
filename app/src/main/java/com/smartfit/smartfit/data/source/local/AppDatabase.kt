@@ -16,7 +16,7 @@ import com.smartfit.smartfit.data.entity.*
         UserPayment::class,
         UserProfile::class,
         UserProgress::class],
-    version = 1, exportSchema = false
+    version = 2, exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun courseDao(): CourseDao
