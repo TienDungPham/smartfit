@@ -4,6 +4,7 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.smartfit.smartfit.data.transfer.*
 import com.smartfit.smartfit.data.transfer.up.SignIn
 import com.smartfit.smartfit.data.transfer.up.SignUp
+import com.smartfit.smartfit.data.transfer.up.UpdateUserMeal
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.CoroutineDispatcher
@@ -68,4 +69,13 @@ class RemoteDataSource(
                 return@withContext false
             }
         }
+
+    suspend fun findAllMeals(): List<MealDTO> =
+        mealService.findAllMealsAsync().await()
+
+    suspend fun findUserMeals(accessToken: String): List<UserMealDTO> =
+        infoService.findUserMealAsync(accessToken).await()
+
+    suspend fun updateUserMeal(accessToken: String, updateUserMeal: UpdateUserMeal): Boolean =
+        infoService.updateUserMealAsync(accessToken, updateUserMeal).await()
 }

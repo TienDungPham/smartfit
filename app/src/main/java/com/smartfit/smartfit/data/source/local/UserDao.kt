@@ -41,8 +41,11 @@ interface UserDao {
     fun saveUserCourses(userCourses: List<UserCourse>)
 
     @Query("SELECT * FROM UserMeal")
-    fun findUserMeal(): Flow<List<UserMeal>>
+    fun findUserMeals(): Flow<List<UserMeal>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveUserMeal(userMeal: UserMeal)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun saveUserMeals(userMeals: List<UserMeal>)
 }

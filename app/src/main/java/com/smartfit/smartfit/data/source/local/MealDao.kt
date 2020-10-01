@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MealDao {
     @Query("SELECT * FROM Meal")
-    fun findAllMeals(): Flow<Meal>
+    fun findAllMeals(): Flow<List<Meal>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveMeals(meals: List<Meal>)

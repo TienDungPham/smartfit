@@ -54,7 +54,7 @@ class DashboardFragment : Fragment() {
             binding.includeUserProgress.apply {
                 workoutsValue.text = it.workouts.toString()
                 minutesValue.text = it.minutes
-                caloriesValue.text = "${it.calories.toString()} Cal"
+                caloriesValue.text = "${it.calories} Cal"
                 caloriesLeft.text = (it.goal - it.calories).toString()
                 if (it.goal != 0) {
                     val percent = it.calories.toFloat() / it.goal.toFloat() * 100F

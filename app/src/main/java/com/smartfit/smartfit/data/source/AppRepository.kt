@@ -6,6 +6,7 @@ import com.smartfit.smartfit.data.source.remote.RemoteDataSource
 import com.smartfit.smartfit.data.transfer.*
 import com.smartfit.smartfit.data.transfer.up.SignIn
 import com.smartfit.smartfit.data.transfer.up.SignUp
+import com.smartfit.smartfit.data.transfer.up.UpdateUserMeal
 import com.smartfit.smartfit.utils.Utils
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -131,6 +132,41 @@ class AppRepository(
             return@withContext remoteDataSource.checkUserAccess(id.toInt(), userAccess.accessToken)
         } catch (e: HttpException) {
             return@withContext true
+        }
+    }
+
+    fun findAllMeals(): Flow<List<Meal>> =
+        localDataSource.findAllMeals().flowOn(dispatcher)
+
+    suspend fun syncMeals() = withContext(dispatcher) {
+        try {
+            val remoteMeals = remoteDataSource.findAllMeals()
+            localDataSource.saveMeals(MealDTO.mapToMeals(remoteMeals))
+        } catch (e: HttpException) {
+            throw java.lang.IllegalStateException("Http Error")
+        }
+    }
+
+    fun findUserMeal(): Flow<List<UserMeal>> =
+        localDataSource.findUserMeals().flowOn(dispatcher)
+
+    suspend fun syncUserMeals() = withContext(dispatcher) {
+        try {
+            val userAccess = findAccessToken()
+            val remoteMeals = remoteDataSource.findUserMeals(userAccess.accessToken)
+            localDataSource.saveUserMeals(UserMealDTO.mapToUserMeals(remoteMeals))
+        } catch (e: HttpException) {
+            throw java.lang.IllegalStateException("Http Error")
+        }
+    }
+
+    suspend fun updateUserMeal(updateUserMeal: UpdateUserMeal) = withContext(dispatcher) {
+        try {
+            val userAccess = findAccessToken()
+            val remoteMeals =
+                remoteDataSource.updateUserMeal(userAccess.accessToken, updateUserMeal)
+        } catch (e: HttpException) {
+            throw java.lang.IllegalStateException("Http Error")
         }
     }
 }

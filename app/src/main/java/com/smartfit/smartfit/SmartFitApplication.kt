@@ -18,7 +18,7 @@ class SmartFitApplication : Application() {
                     .context(this)
                     .build()
             }
-            return appComponent as AppComponent;
+            return appComponent as AppComponent
         }
     }
 

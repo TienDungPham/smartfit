@@ -9,6 +9,7 @@ data class UserMeal(
     var id: Long,
     var eatenDate: String,
     var totalCalories: Int,
+    var servingSize: Int,
     var mealName: String,
     var mealImageUrl: String,
     var mealType: String

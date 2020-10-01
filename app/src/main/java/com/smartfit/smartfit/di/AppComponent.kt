@@ -12,10 +12,10 @@ import com.smartfit.smartfit.ui.coursepreview.CoursePreviewFragment
 import com.smartfit.smartfit.ui.courses.CoursesFragment
 import com.smartfit.smartfit.ui.courseworkout.CourseWorkoutFragment
 import com.smartfit.smartfit.ui.dashboard.DashboardFragment
-import com.smartfit.smartfit.ui.meal.MealFragment
 import com.smartfit.smartfit.ui.paymenthistory.PaymentHistoryFragment
 import com.smartfit.smartfit.ui.settings.SettingsFragment
 import com.smartfit.smartfit.ui.updateaccount.UpdateAccountFragment
+import com.smartfit.smartfit.ui.usermeal.UserMealFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -36,7 +36,7 @@ interface AppComponent {
     fun injectCoursesFragment(coursesFragment: CoursesFragment)
     fun injectCourseWorkoutFragment(courseWorkoutFragment: CourseWorkoutFragment)
     fun injectDashboardFragment(dashboardFragment: DashboardFragment)
-    fun injectMealFragment(mealFragment: MealFragment)
+    fun injectUserMealFragment(userMealFragment: UserMealFragment)
     fun injectPaymentHistoryFragment(paymentHistoryFragment: PaymentHistoryFragment)
     fun injectSettingsFragment(settingsFragment: SettingsFragment)
     fun injectUpdateAccountFragment(updateDateAccountFragment: UpdateAccountFragment)

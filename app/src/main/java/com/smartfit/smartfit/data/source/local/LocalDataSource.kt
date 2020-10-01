@@ -41,4 +41,15 @@ class LocalDataSource(
 
     fun saveCourseSteps(courseSteps: List<CourseStep>) =
         appDatabase.courseDao().saveCourseSteps(courseSteps)
+
+    fun findAllMeals(): Flow<List<Meal>> =
+        appDatabase.mealDao().findAllMeals()
+
+    fun saveMeals(meals: List<Meal>) =
+        appDatabase.mealDao().saveMeals(meals)
+
+    fun findUserMeals(): Flow<List<UserMeal>> = appDatabase.userDao().findUserMeals()
+
+    fun saveUserMeals(meals: List<UserMeal>) =
+        appDatabase.userDao().saveUserMeals(meals)
 }

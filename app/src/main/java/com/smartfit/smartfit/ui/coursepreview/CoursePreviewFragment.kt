@@ -64,7 +64,7 @@ class CoursePreviewFragment : Fragment() {
                 courseVariant.text =
                     "${it.course.courseType} - ${it.course.level} - ${it.course.estimatedTime}H"
                 courseDescription.text = it.course.description
-                courseStepAdapter.submitList(it.steps)
+                courseStepAdapter.submitList(it.steps.filter { s -> s.type == "Practice" })
 
                 Glide.with(binding.courseImage)
                     .load(it.course.imageUrl)

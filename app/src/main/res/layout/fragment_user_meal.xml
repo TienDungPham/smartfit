@@ -43,7 +43,7 @@
                     android:layout_height="100dp"
                     android:background="@drawable/small_progress_circle_shape"
                     android:max="100"
-                    android:progressDrawable="@drawable/small_progress_circle_bar"
+                    android:progressDrawable="@drawable/small_progress_circle_bar_blue"
                     tools:max="100"
                     tools:progress="25" />
 
@@ -84,7 +84,7 @@
                     android:layout_height="100dp"
                     android:background="@drawable/small_progress_circle_shape"
                     android:max="100"
-                    android:progressDrawable="@drawable/small_progress_circle_bar"
+                    android:progressDrawable="@drawable/small_progress_circle_bar_green"
                     tools:max="100"
                     tools:progress="25" />
 
@@ -124,7 +124,7 @@
                     android:layout_height="100dp"
                     android:background="@drawable/small_progress_circle_shape"
                     android:max="100"
-                    android:progressDrawable="@drawable/small_progress_circle_bar"
+                    android:progressDrawable="@drawable/small_progress_circle_bar_orange"
                     tools:max="100"
                     tools:progress="25" />
 
@@ -183,14 +183,17 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/payment_rv"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
 
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/protein_title"
                 tools:itemCount="10"
-                tools:listitem="@layout/item_meal" />
+                tools:listitem="@layout/item_user_meal" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

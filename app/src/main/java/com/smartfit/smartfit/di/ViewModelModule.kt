@@ -14,10 +14,10 @@ import com.smartfit.smartfit.ui.coursepreview.CoursePreviewViewModel
 import com.smartfit.smartfit.ui.courses.CoursesViewModel
 import com.smartfit.smartfit.ui.courseworkout.CourseWorkoutViewModel
 import com.smartfit.smartfit.ui.dashboard.DashboardViewModel
-import com.smartfit.smartfit.ui.meal.MealViewModel
 import com.smartfit.smartfit.ui.paymenthistory.PaymentHistoryViewModel
 import com.smartfit.smartfit.ui.settings.SettingsViewModel
 import com.smartfit.smartfit.ui.updateaccount.UpdateAccountViewModel
+import com.smartfit.smartfit.ui.usermeal.UserMealViewModel
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -57,8 +57,8 @@ class ViewModelFactory(private val appRepository: AppRepository) : ViewModelProv
             return CourseWorkoutViewModel(appRepository) as T
         } else if (modelClass.isAssignableFrom(DashboardViewModel::class.java)) {
             return DashboardViewModel(appRepository) as T
-        } else if (modelClass.isAssignableFrom(MealViewModel::class.java)) {
-            return MealViewModel(appRepository) as T
+        } else if (modelClass.isAssignableFrom(UserMealViewModel::class.java)) {
+            return UserMealViewModel(appRepository) as T
         } else if (modelClass.isAssignableFrom(PaymentHistoryViewModel::class.java)) {
             return PaymentHistoryViewModel(appRepository) as T
         } else if (modelClass.isAssignableFrom(SettingsViewModel::class.java)) {
