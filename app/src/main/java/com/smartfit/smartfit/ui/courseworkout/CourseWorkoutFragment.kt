@@ -1,8 +1,11 @@
 package com.smartfit.smartfit.ui.courseworkout
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.pose.PoseDetection
 import com.google.mlkit.vision.pose.PoseDetectorOptions
+import com.smartfit.smartfit.R
 import com.smartfit.smartfit.appComponent
 import com.smartfit.smartfit.databinding.FragmentCourseWorkoutBinding
 import java.util.concurrent.ExecutorService
@@ -42,12 +46,26 @@ class CourseWorkoutFragment : Fragment() {
     private val poseDetector = PoseDetection.getClient(options)
     private lateinit var cameraExecutor: ExecutorService
     private val poseAnalyzer = PoseAnalyzer(poseDetector) {
-        binding.poseMessage.text = it
+        if (isPredicting) {
+            binding.poseMessage.text = it
+            if (it == "Very good!") {
+                courseWorkoutViewModel.startTimer()
+            } else {
+                courseWorkoutViewModel.stopTimer()
+            }
+        } else {
+            courseWorkoutViewModel.startTimer()
+        }
     }
+    private var isPredicting = false
+    private var vibratorService: Vibrator? = null
+    private var mediaPlayer: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         cameraExecutor = Executors.newSingleThreadExecutor()
+        vibratorService = requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.notify_effect)
     }
 
     override fun onCreateView(
@@ -57,17 +75,78 @@ class CourseWorkoutFragment : Fragment() {
         binding = FragmentCourseWorkoutBinding.inflate(inflater, container, false)
         appComponent(requireContext()).injectCourseWorkoutFragment(this)
 
-        if (checkCameraPermission()) {
-            requestPermissions(arrayOf(Manifest.permission.CAMERA), 100)
-        } else {
-            startCamera()
-        }
+        if (checkCameraPermission()) requestPermissions(arrayOf(Manifest.permission.CAMERA), 100)
+        else startCamera()
 
         binding.apply {
+            backImage.isClickable = false
+            backStep.isClickable = false
+            nextStep.isClickable = false
             backImage.setOnClickListener {
                 findNavController().navigateUp()
             }
+
+            stepName.setOnClickListener {
+                val stepDetail = courseWorkoutViewModel.stepDetail
+                if (stepDetail.value == null) return@setOnClickListener
+                arguments?.getLong("courseId")?.let { ci ->
+                    val bundle = Bundle()
+                    bundle.putLong("courseId", ci)
+                    bundle.putLong("stepId", stepDetail.value!!.id)
+                    findNavController().navigate(
+                        R.id.action_nav_course_workout_to_nav_course_class,
+                        bundle
+                    )
+                }
+            }
+
+            backStep.setOnClickListener {
+                courseWorkoutViewModel.backStep()
+            }
+
+            nextStep.setOnClickListener {
+                courseWorkoutViewModel.nextStep()
+            }
         }
+
+        courseWorkoutViewModel.stepDetail.observe(viewLifecycleOwner) {
+            if (it == null) return@observe
+            binding.apply {
+                backImage.isClickable = true
+                backStep.isClickable = true
+                nextStep.isClickable = true
+            }
+            binding.stepName.text = it.name
+        }
+
+        courseWorkoutViewModel.timeLeft.observe(viewLifecycleOwner) {
+            when (it) {
+                in 45000L..50000L -> {
+                    binding.poseMessage.text = "Are your ready ?"
+                }
+                in 40000L..45000L -> {
+                    binding.poseMessage.text = "${(it - 40000) / 1000}"
+                    vibratorService?.vibrate(500)
+                    mediaPlayer?.start()
+                }
+                else -> {
+                    isPredicting = true
+                }
+            }
+            if (isPredicting) {
+                binding.timer.text = "${it / 1000}S"
+            }
+            if (it == 0L) {
+                courseWorkoutViewModel.resetTimer()
+                courseWorkoutViewModel.nextStep()
+                isPredicting = false
+            }
+        }
+
+        arguments?.getLong("courseId")?.let { ci ->
+            courseWorkoutViewModel.syncData(ci)
+        }
+
         return binding.root
     }
 

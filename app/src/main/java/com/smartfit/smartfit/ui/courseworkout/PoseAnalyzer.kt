@@ -35,6 +35,8 @@ class PoseAnalyzer(
                                 } else {
                                     messageCallback("Very good!")
                                 }
+                            } else {
+                                messageCallback("")
                             }
                         }
                     }

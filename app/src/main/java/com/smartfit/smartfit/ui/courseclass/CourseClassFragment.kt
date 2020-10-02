@@ -46,7 +46,7 @@ class CourseClassFragment : Fragment() {
         }
 
         arguments?.getLong("stepId").let {
-            courseClassViewModel.findCourseDetail(it!!)
+            courseClassViewModel.findStepDetail(it!!)
         }
 
         return binding.root

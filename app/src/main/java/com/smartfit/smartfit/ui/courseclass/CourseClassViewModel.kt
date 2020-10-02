@@ -17,7 +17,7 @@ class CourseClassViewModel(private val appRepository: AppRepository) : ViewModel
         }
     private val _stepDetail = MutableLiveData<CourseStep>()
 
-    fun findCourseDetail(id: Long) {
+    fun findStepDetail(id: Long) {
         viewModelScope.launch {
             _stepDetail.value = appRepository.findStepDetail(id)
         }

@@ -67,7 +67,11 @@
         android:id="@+id/nav_course_workout"
         android:name="com.smartfit.smartfit.ui.courseworkout.CourseWorkoutFragment"
         android:label="Course Workout"
-        tools:layout="@layout/fragment_course_workout" />
+        tools:layout="@layout/fragment_course_workout">
+        <action
+            android:id="@+id/action_nav_course_workout_to_nav_course_class"
+            app:destination="@id/nav_course_class" />
+    </fragment>
     <fragment
         android:id="@+id/nav_checkout"
         android:name="com.smartfit.smartfit.ui.checkout.CheckoutFragment"

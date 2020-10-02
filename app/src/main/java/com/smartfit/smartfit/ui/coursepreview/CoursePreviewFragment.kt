@@ -53,6 +53,7 @@ class CoursePreviewFragment : Fragment() {
                 (requireActivity() as MainActivity).showLoadingDialog("Please wait.....")
             }
         }
+
         binding.courseStepRv.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = courseStepAdapter
