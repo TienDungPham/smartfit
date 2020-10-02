@@ -29,7 +29,7 @@ class PaymentAdapter :
             binding.apply {
                 statusTitle.text = item.status
                 paymentDescription.text = item.description
-                totalPrice.text = item.totalPrice.toString()
+                totalPrice.text = "${item.totalPrice}$"
             }
 
             Glide.with(binding.statusImage)

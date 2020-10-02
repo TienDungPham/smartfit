@@ -10,6 +10,7 @@ import kotlin.math.atan2
 
 class PoseAnalyzer(
     private val poseDetector: PoseDetector,
+    private val getPose: () -> String,
     private val messageCallback: (String) -> Unit
 ) : ImageAnalysis.Analyzer {
     override fun analyze(imageProxy: ImageProxy) {
@@ -19,7 +20,7 @@ class PoseAnalyzer(
             poseDetector.process(image)
                 .addOnSuccessListener {
                     if (it.allPoseLandmarks.isNotEmpty()) {
-                        val posePredict = PosePredict.sampleData()
+                        val posePredict = PosePredict.sampleData(getPose())
                         for (condition in posePredict.conditions) {
                             val cl1 = it.getPoseLandmark(condition.cl1)
                             val cl2 = it.getPoseLandmark(condition.cl2)

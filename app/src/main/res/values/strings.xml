@@ -23,9 +23,9 @@
     <string name="done">Done</string>
 
     <string name="your_name">Your Name</string>
-    <string name="your_weight">Your Weight</string>
-    <string name="your_height">Your Height</string>
-    <string name="your_age">Your Age</string>
+    <string name="your_weight">Your Weight (Kg)</string>
+    <string name="your_height">Your Height (Cm)</string>
+    <string name="your_age">Your Age (Year)</string>
     <string name="your_gender">Your Gender</string>
     <string name="your_goal">Your Goal</string>
     <string name="reset">Reset</string>

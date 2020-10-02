@@ -45,7 +45,13 @@ class CourseWorkoutFragment : Fragment() {
         .build()
     private val poseDetector = PoseDetection.getClient(options)
     private lateinit var cameraExecutor: ExecutorService
-    private val poseAnalyzer = PoseAnalyzer(poseDetector) {
+    private val poseAnalyzer = PoseAnalyzer(poseDetector, {
+        if (courseWorkoutViewModel.stepDetail.value != null) {
+            courseWorkoutViewModel.stepDetail.value!!.pose
+        } else {
+            ""
+        }
+    }) {
         if (isPredicting) {
             binding.poseMessage.text = it
             if (it == "Very good!") {
@@ -57,6 +63,7 @@ class CourseWorkoutFragment : Fragment() {
             courseWorkoutViewModel.startTimer()
         }
     }
+
     private var isPredicting = false
     private var vibratorService: Vibrator? = null
     private var mediaPlayer: MediaPlayer? = null
@@ -74,6 +81,9 @@ class CourseWorkoutFragment : Fragment() {
     ): View? {
         binding = FragmentCourseWorkoutBinding.inflate(inflater, container, false)
         appComponent(requireContext()).injectCourseWorkoutFragment(this)
+        arguments?.getLong("courseId")?.let { ci ->
+            courseWorkoutViewModel.updateUserSession(ci)
+        }
 
         if (checkCameraPermission()) requestPermissions(arrayOf(Manifest.permission.CAMERA), 100)
         else startCamera()
@@ -148,6 +158,13 @@ class CourseWorkoutFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        arguments?.getLong("courseId")?.let { ci ->
+            courseWorkoutViewModel.updateUserSession(ci)
+        }
     }
 
     private fun checkCameraPermission(): Boolean {

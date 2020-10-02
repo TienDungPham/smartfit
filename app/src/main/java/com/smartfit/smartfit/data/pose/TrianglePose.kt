@@ -1,0 +1,66 @@
+package com.smartfit.smartfit.data.pose
+
+import com.google.mlkit.vision.pose.PoseLandmark
+import java.util.*
+
+object TrianglePose {
+    fun getPose(): PosePredict {
+        val conditions = LinkedList<PoseCondition>()
+        conditions.add(
+            PoseCondition(
+                PoseLandmark.Type.RIGHT_SHOULDER,
+                PoseLandmark.Type.RIGHT_ELBOW,
+                PoseLandmark.Type.RIGHT_WRIST,
+                90.0,
+                180.0,
+                "Straight your right hand",
+                "Straight your right hand"
+            )
+        )
+        conditions.add(
+            PoseCondition(
+                PoseLandmark.Type.LEFT_SHOULDER,
+                PoseLandmark.Type.LEFT_ELBOW,
+                PoseLandmark.Type.LEFT_WRIST,
+                90.0,
+                180.0,
+                "Straight your left hand",
+                "Straight your left hand"
+            )
+        )
+        conditions.add(
+            PoseCondition(
+                PoseLandmark.Type.LEFT_WRIST,
+                PoseLandmark.Type.LEFT_SHOULDER,
+                PoseLandmark.Type.LEFT_HIP,
+                70.0,
+                110.0,
+                "Place your left hand higher than right hand",
+                "Place your left hand higher than right hand"
+            )
+        )
+        conditions.add(
+            PoseCondition(
+                PoseLandmark.Type.RIGHT_HIP,
+                PoseLandmark.Type.RIGHT_KNEE,
+                PoseLandmark.Type.RIGHT_ANKLE,
+                90.0,
+                180.0,
+                "Straight your right leg",
+                "Straight your right leg"
+            )
+        )
+        conditions.add(
+            PoseCondition(
+                PoseLandmark.Type.LEFT_HIP,
+                PoseLandmark.Type.LEFT_KNEE,
+                PoseLandmark.Type.LEFT_ANKLE,
+                90.0,
+                180.0,
+                "Straight your left leg",
+                "Straight your left leg"
+            )
+        )
+        return PosePredict("Normal", "triangle", conditions)
+    }
+}

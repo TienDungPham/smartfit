@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.smartfit.smartfit.data.entity.CourseStep
 import com.smartfit.smartfit.data.source.AppRepository
+import com.smartfit.smartfit.data.transfer.up.UpdateUserSession
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
@@ -92,5 +93,12 @@ class CourseWorkoutViewModel(private val appRepository: AppRepository) : ViewMod
     override fun onCleared() {
         super.onCleared()
         viewModelScope.cancel()
+    }
+
+    fun updateUserSession(courseId: Long) {
+        viewModelScope.launch {
+            val updateUserSession = UpdateUserSession(courseId)
+            appRepository.updateUserSession(updateUserSession)
+        }
     }
 }

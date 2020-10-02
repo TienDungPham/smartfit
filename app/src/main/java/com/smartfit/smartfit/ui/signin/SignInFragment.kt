@@ -27,7 +27,7 @@ class SignInFragment : Fragment() {
 
         val adapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_list_item_1,
+            R.layout.item_country_code,
             resources.getStringArray(R.array.country_code)
         )
         binding.inputCountryCode.adapter = adapter
