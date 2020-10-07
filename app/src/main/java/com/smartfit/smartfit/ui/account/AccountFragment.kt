@@ -83,7 +83,7 @@ class AccountFragment : Fragment() {
         val actionItems = LinkedList<ActionItem>()
         actionItems.add(ActionItem(R.drawable.icon_account, "Update Account"))
         actionItems.add(ActionItem(R.drawable.icon_payment, "Payment History"))
-        actionItems.add(ActionItem(R.drawable.icon_settings, "Settings"))
+        // actionItems.add(ActionItem(R.drawable.icon_settings, "Settings"))
         actionItems.add(ActionItem(R.drawable.icon_exits, "Sign Out"))
         return actionItems
     }
