@@ -40,7 +40,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Butt Kicks" />
 
-            <VideoView
+            <com.google.android.exoplayer2.ui.PlayerView
                 android:id="@+id/step_video"
                 android:layout_width="0dp"
                 android:layout_height="250dp"
@@ -48,6 +48,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/step_title" />
+            <!--            <VideoView-->
+            <!--                android:id="@+id/step_video"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="250dp"-->
+            <!--                android:layout_marginTop="8dp"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/step_title" />-->
 
             <WebView
                 android:id="@+id/step_description"

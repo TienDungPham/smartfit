@@ -20,6 +20,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.mlkit.vision.pose.PoseDetection
 import com.google.mlkit.vision.pose.PoseDetectorOptions
 import com.smartfit.smartfit.R
@@ -53,7 +56,7 @@ class CourseWorkoutFragment : Fragment() {
         }
     }) {
         if (isPredicting) {
-            binding.poseMessage.text = it
+            binding.feedbackMessage.text = it
             if (it == "Very good!") {
                 courseWorkoutViewModel.startTimer()
             } else {
@@ -64,6 +67,7 @@ class CourseWorkoutFragment : Fragment() {
         }
     }
 
+    private var isFrontCamera = true
     private var isPredicting = false
     private var vibratorService: Vibrator? = null
     private var mediaPlayer: MediaPlayer? = null
@@ -90,8 +94,7 @@ class CourseWorkoutFragment : Fragment() {
 
         binding.apply {
             backImage.isClickable = false
-            backStep.isClickable = false
-            nextStep.isClickable = false
+
             backImage.setOnClickListener {
                 findNavController().navigateUp()
             }
@@ -110,12 +113,9 @@ class CourseWorkoutFragment : Fragment() {
                 }
             }
 
-            backStep.setOnClickListener {
-                courseWorkoutViewModel.backStep()
-            }
-
-            nextStep.setOnClickListener {
-                courseWorkoutViewModel.nextStep()
+            flipCamera.setOnClickListener {
+                isFrontCamera = !isFrontCamera
+                startCamera()
             }
         }
 
@@ -123,19 +123,23 @@ class CourseWorkoutFragment : Fragment() {
             if (it == null) return@observe
             binding.apply {
                 backImage.isClickable = true
-                backStep.isClickable = true
-                nextStep.isClickable = true
             }
             binding.stepName.text = it.name
+
+            Glide.with(binding.stepImage)
+                .asGif()
+                .load(it.videoUrl)
+                .transform(CenterCrop(), RoundedCorners(10))
+                .into(binding.stepImage)
         }
 
         courseWorkoutViewModel.timeLeft.observe(viewLifecycleOwner) {
             when (it) {
                 in 45000L..50000L -> {
-                    binding.poseMessage.text = "Are your ready ?"
+                    binding.feedbackMessage.text = "Are your ready ?"
                 }
                 in 40000L..45000L -> {
-                    binding.poseMessage.text = "${(it - 40000) / 1000}"
+                    binding.feedbackMessage.text = "${(it - 40000) / 1000}"
                     vibratorService?.vibrate(500)
                     mediaPlayer?.start()
                 }
@@ -203,7 +207,8 @@ class CourseWorkoutFragment : Fragment() {
                     .also {
                         it.setAnalyzer(cameraExecutor, poseAnalyzer)
                     }
-                val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+                val cameraSelector =
+                    if (isFrontCamera) CameraSelector.DEFAULT_FRONT_CAMERA else CameraSelector.DEFAULT_BACK_CAMERA
 
                 try {
                     cameraProvider.unbindAll()

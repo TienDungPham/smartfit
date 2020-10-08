@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="country_code">
-        <item>+84</item>
         <item>+1</item>
+        <item>+84</item>
         <item>+93</item>
         <item>+355</item>
         <item>+213</item>

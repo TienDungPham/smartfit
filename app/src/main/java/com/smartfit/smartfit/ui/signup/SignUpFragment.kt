@@ -73,13 +73,20 @@ class SignUpFragment : Fragment() {
                 }
                 authActivity.showLoadingDialog("Signing Up. Please wait ...")
 
+                val userGoal = when (goal) {
+                    "Maintain Weight" -> "Maintain Weight"
+                    "Mile Weight Loss 0.25 kg/week" -> "Mile Weight Loss"
+                    "Weight Loss 0.5 kg/week" -> "Weight Loss"
+                    else -> "Extreme Weight Loss"
+                }
+
                 authActivity.authViewModel.signUp(
                     name,
                     weight.toInt(),
                     height.toInt(),
                     age.toInt(),
                     gender == "Female",
-                    goal
+                    userGoal
                 )
                 imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
             }

@@ -45,9 +45,9 @@ class AccountFragment : Fragment() {
                 1 -> {
                     findNavController().navigate(R.id.action_nav_account_to_nav_payment_history)
                 }
-                2 -> {
-                    findNavController().navigate(R.id.action_nav_account_to_nav_settings)
-                }
+                // 2 -> {
+                //     findNavController().navigate(R.id.action_nav_account_to_nav_settings)
+                // }
                 else -> {
                     (requireActivity() as MainActivity).signOut()
                 }

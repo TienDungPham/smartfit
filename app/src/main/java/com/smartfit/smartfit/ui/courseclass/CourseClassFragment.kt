@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.MediaController
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.SimpleExoPlayer
+
 import com.smartfit.smartfit.appComponent
 import com.smartfit.smartfit.databinding.FragmentCourseClassBinding
 import javax.inject.Inject
@@ -21,6 +23,12 @@ class CourseClassFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val courseClassViewModel by viewModels<CourseClassViewModel> {
         viewModelFactory
+    }
+    private lateinit var player: SimpleExoPlayer
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        player = SimpleExoPlayer.Builder(requireContext()).build()
     }
 
     override fun onCreateView(
@@ -34,9 +42,12 @@ class CourseClassFragment : Fragment() {
         courseClassViewModel.stepDetail.observe(viewLifecycleOwner) {
             if (it == null) return@observe
             binding.stepTitle.text = it.name
-            binding.stepVideo.setVideoPath(it.videoUrl)
-            binding.stepVideo.setMediaController(MediaController(requireContext()))
-            binding.stepVideo.start()
+            binding.stepVideo.player = player
+
+            val mediaItem = MediaItem.fromUri(it.videoUrl)
+            player.setMediaItem(mediaItem)
+            player.prepare()
+            player.play()
 
             binding.stepDescription.loadUrl("https://smartfitapi2.herokuapp.com/api/v1/ui/practice?description=${it.description}")
 
@@ -50,5 +61,10 @@ class CourseClassFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        player.stop()
     }
 }

@@ -20,6 +20,11 @@ object Utils {
     }
 
     fun getGoals(): List<String> {
-        return listOf("Maintain Weight", "Mile Weight Loss", "Weight Loss", "Extreme Weight Loss")
+        return listOf(
+            "Maintain Weight",
+            "Mile Weight Loss 0.25 kg/week",
+            "Weight Loss 0.5 kg/week",
+            "Extreme Weight Loss 1 kg/week"
+        )
     }
 }

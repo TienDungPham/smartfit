@@ -8,10 +8,14 @@ import androidx.lifecycle.viewModelScope
 import com.smartfit.smartfit.data.entity.CourseStep
 import com.smartfit.smartfit.data.source.AppRepository
 import com.smartfit.smartfit.data.transfer.up.UpdateUserSession
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class CourseWorkoutViewModel(private val appRepository: AppRepository) : ViewModel() {
+    private val customScope = CoroutineScope(Dispatchers.IO)
+
     val stepDetail: LiveData<CourseStep>
         get() {
             return _stepDetail
@@ -96,7 +100,7 @@ class CourseWorkoutViewModel(private val appRepository: AppRepository) : ViewMod
     }
 
     fun updateUserSession(courseId: Long) {
-        viewModelScope.launch {
+        customScope.launch {
             val updateUserSession = UpdateUserSession(courseId)
             appRepository.updateUserSession(updateUserSession)
         }

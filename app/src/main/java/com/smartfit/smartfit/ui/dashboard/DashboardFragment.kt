@@ -55,10 +55,13 @@ class DashboardFragment : Fragment() {
                 workoutsValue.text = it.workouts.toString()
                 minutesValue.text = it.minutes
                 caloriesValue.text = "${it.calories} Cal"
-                caloriesLeft.text = (it.goal - it.calories).toString()
+                caloriesLeft.text = "${it.goal - it.calories} Cal"
+
                 if (it.goal != 0) {
                     val percent = it.calories.toFloat() / it.goal.toFloat() * 100F
                     progressBar.progress = percent.roundToInt()
+                    val goalPercent = String.format("%.2f", percent)
+                    goalMessage.text = "You have walked ${goalPercent}% of your goal"
                 }
             }
         }
