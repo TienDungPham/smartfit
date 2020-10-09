@@ -39,6 +39,9 @@ class CourseWorkoutViewModel(private val appRepository: AppRepository) : ViewMod
             if (currentStepPosition < it.size - 1) {
                 currentStepPosition += 1
                 _stepDetail.value = it[currentStepPosition]
+            } else {
+                currentStepPosition = 0
+                _stepDetail.value = it[currentStepPosition]
             }
         }
     }
